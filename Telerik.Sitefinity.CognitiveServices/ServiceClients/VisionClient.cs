@@ -1,11 +1,11 @@
-﻿using System;
+﻿using ServiceStack.Text;
+using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using ServiceStack.Text;
 using Telerik.Microsoft.Practices.Unity;
 using Telerik.Sitefinity.CognitiveServices.Configuration;
 using Telerik.Sitefinity.CognitiveServices.Model;
-using Telerik.Sitefinity.Configuration;
+using SfConfig = Telerik.Sitefinity.Configuration;
 
 namespace Telerik.Sitefinity.CognitiveServices.ServiceClients
 {
@@ -16,7 +16,7 @@ namespace Telerik.Sitefinity.CognitiveServices.ServiceClients
         private readonly HttpClient httpClient;
 
         [InjectionConstructor]
-        public VisionClient() : this(Config.Get<CognitiveServicesConfig>(), new HttpClient())
+        public VisionClient() : this(SfConfig.Config.Get<CognitiveServicesConfig>(), new HttpClient())
         {
         }
 
