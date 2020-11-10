@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, fromEvent } from "rxjs";
 import { map } from "rxjs/operators";
+import { HTTP_PREFIX } from 'progress-sitefinity-adminapp-sdk/app/api/v1';
 
 @Component({
     templateUrl: "./text-analysis.component.html",
@@ -72,7 +73,7 @@ export class TextAnalysisComponent implements OnInit {
         let url:string = `/webapi/CognitiveServices/Hashtags`;
 
         return this.http
-                .post(url, JSON.stringify({ "Text": text }), { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) })
+                .post(HTTP_PREFIX + url, JSON.stringify({ "Text": text }), { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) })
                 .pipe(map(result => result["hashtags"]));
     }
 
@@ -80,14 +81,14 @@ export class TextAnalysisComponent implements OnInit {
         let url:string = `/webapi/CognitiveServices/Sentiment`;
 
         return this.http
-                .post(url, JSON.stringify({ "Text": text }), { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
+                .post(HTTP_PREFIX + url, JSON.stringify({ "Text": text }), { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
     }
 
     getSummary(title: string, text: string, sentencesNumber: number): Observable<string> {
         let url:string = `/webapi/CognitiveServices/Summarize`;
 
         return this.http
-                .post(url, JSON.stringify({ "Title": title, "Text": text, "SentencesNumber": sentencesNumber }), { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) })
+                .post(HTTP_PREFIX + url, JSON.stringify({ "Title": title, "Text": text, "SentencesNumber": sentencesNumber }), { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) })
                 .pipe(map(result => result["Sentences"].join(" ")));
     }
 
@@ -95,7 +96,7 @@ export class TextAnalysisComponent implements OnInit {
         let url:string = `/webapi/CognitiveServices/Classify`;
 
         return this.http
-                    .post(url, JSON.stringify({ "Text": text, "Taxonomy": "iptc-subjectcode" }), { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) })
+                    .post(HTTP_PREFIX + url, JSON.stringify({ "Text": text, "Taxonomy": "iptc-subjectcode" }), { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) })
                     .pipe(map(result => result["Categories"]));
     }
 }
